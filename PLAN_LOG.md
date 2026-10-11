@@ -1,0 +1,8 @@
+# Plan Mode Supervision Log
+
+| Session # | Prompt summary (15 words or fewer) | Did you amend the plan? | What you changed | Did output match amended plan? |
+|---|---|---|---|---|
+| 1 | Add priority to existing tasks and new task creation | Yes | Claude's original plan skipped tests. I asked it to add tests for default, custom, and invalid priorities in tests/test_tasks.py. Claude added the tests and all 16 passed. However, it used user_id=3 instead of user_id=1 as planned because using user 1 would interfere with an existing test that expects exactly two tasks. | Partially |
+| 2 | Plan PATCH endpoint for updating task priority | Yes | Claude's original plan only had service tests and changed shared task data. I asked it to add Flask API tests for status codes 200, 422, and 404, and a fixture to restore TASKS after each test. Claude added both, and reported 29 passing tests. | Yes |
+| 3 | Plan GET endpoint with optional priority filtering | Yes | Claude originally planned tests that depended on leftover task data. I requested a known_tasks fixture to create controlled test data and restore the original TASKS dictionary afterward. I also requested exact query values 1 through 5 and tests for invalid formats. All 57 tests passed, including 30 selected filtering-related tests. | Yes |
+| 4 | Review priority feature, test isolation, API coverage, and lint | No | I approved Claude's original plan without changing it. Claude fixed three tests that changed shared task data, added eight API regression tests, and corrected six Ruff errors. All 65 tests passed, Ruff reported no errors, and the shared-state check returned True. | Yes |
